@@ -38,7 +38,7 @@ test("root starts a deterministic three-redirect chain", async () => {
       const html = await response.text();
       assert.match(
         html,
-        /<head>[\s\S]*<script async src="https:\/\/cdn\.coad\.be3pi\.com\/js\/cox-site\.js" co-pub="PUB02E2503AE" co-st="SIT0DCBEF6F1" crossorigin="anonymous"><\/script>[\s\S]*<\/head>/,
+        /<head>[\s\S]*<script async src="https:\/\/cdn\.coad\.be3pi\.com\/js\/cox-site\.js" co-pub="PUB02E2503AE" co-st="SIT0C0EB3F27" crossorigin="anonymous"><\/script>[\s\S]*<\/head>/,
       );
       break;
     }
@@ -70,6 +70,6 @@ test("valid destination returns the COAD script inside head", async () => {
   const body = html.match(/<body>([\s\S]*?)<\/body>/i)?.[1] ?? "";
   assert.match(head, /src="https:\/\/cdn\.coad\.be3pi\.com\/js\/cox-site\.js"/);
   assert.match(head, /co-pub="PUB02E2503AE"/);
-  assert.match(head, /co-st="SIT0DCBEF6F1"/);
+  assert.match(head, /co-st="SIT0C0EB3F27"/);
   assert.doesNotMatch(body, /cdn\.coad\.be3pi\.com\/js\/cox-site\.js/);
 });

@@ -8,7 +8,7 @@ const style = `
 
 function page(kind: string) {
   const validScript =
-    '<script async src="https://cdn.coad.be3pi.com/js/cox-site.js" co-pub="PUB02E2503AE" co-st="SIT0DCBEF6F1" crossorigin="anonymous"></script>';
+    '<script async src="https://cdn.coad.be3pi.com/js/cox-site.js" co-pub="PUB02E2503AE" co-st="SIT0C0EB3F27" crossorigin="anonymous"></script>';
   const wrongScript =
     '<script async src="https://cdn.coad.be3pi.com/js/cox-site.js" co-pub="PUB02E2503AE" co-st="SIT-WRONG-SITE-ID" crossorigin="anonymous"></script>';
 
@@ -33,7 +33,7 @@ function page(kind: string) {
     },
     wrong: {
       title: "Wrong Site ID",
-      note: "The script exists, but its co-st attribute does not match SIT0DCBEF6F1.",
+      note: "The script exists, but its co-st attribute does not match SIT0C0EB3F27.",
       head: wrongScript,
       body: "",
     },
@@ -55,7 +55,7 @@ function page(kind: string) {
     <span class="badge">FINAL RESPONSE · HTTP 200</span>
     <h1>${item.title}</h1>
     <p>${item.note}</p>
-    <code>Expected Site ID: SIT0DCBEF6F1</code>
+    <code>Expected Site ID: SIT0C0EB3F27</code>
     <a href="/lab">← Back to Redirect Verification Lab</a>
   </main>
 </body>

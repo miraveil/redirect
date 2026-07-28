@@ -167,9 +167,9 @@ export default function Home() {
           <div className="script-block">
             <div>
               <span>Expected script in final page head</span>
-              <code>{`<script async src="https://cdn.coad.be3pi.com/js/cox-site.js" co-pub="PUB02E2503AE" co-st="SIT0DCBEF6F1" crossorigin="anonymous">`}</code>
+              <code>{`<script async src="https://cdn.coad.be3pi.com/js/cox-site.js" co-pub="PUB02E2503AE" co-st="SIT0C0EB3F27" crossorigin="anonymous">`}</code>
             </div>
-            <span className="tag">SITE ID · SIT0DCBEF6F1</span>
+            <span className="tag">SITE ID · SIT0C0EB3F27</span>
           </div>
         </div>
         <div className="flow-card">
