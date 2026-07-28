@@ -19,12 +19,12 @@ const context = {
   passThroughOnException() {},
 };
 
-test("root starts a deterministic three-redirect chain", async () => {
+test("root starts a deterministic five-redirect chain", async () => {
   const worker = await loadWorker();
   let url = "http://localhost/";
   const statuses = [];
 
-  for (let index = 0; index < 4; index += 1) {
+  for (let index = 0; index < 6; index += 1) {
     const response = await worker.fetch(
       new Request(url, {
         redirect: "manual",
@@ -46,7 +46,7 @@ test("root starts a deterministic three-redirect chain", async () => {
     assert.ok(url);
   }
 
-  assert.deepEqual(statuses, [302, 302, 302, 200]);
+  assert.deepEqual(statuses, [302, 302, 302, 302, 302, 200]);
   assert.equal(url, "http://localhost/result/valid");
 });
 

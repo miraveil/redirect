@@ -1,7 +1,7 @@
 export function GET(request: Request) {
   const url = new URL(request.url);
   const destination = new URL(
-    "/redirect/2?status=302&delay=0&target=valid",
+    "/redirect/4?status=302&delay=0&target=valid",
     url.origin,
   );
 

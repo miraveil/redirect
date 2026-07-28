@@ -9,7 +9,7 @@ correctly follows HTTP redirects and inspects the final page `<head>`.
 - Publisher ID: `co-pub="PUB02E2503AE"`
 - Site ID: `co-st="SIT0C0EB3F27"`
 - The valid script is present only on `/result/valid`.
-- The root URL follows three redirects before reaching `/result/valid`.
+- The root URL follows five redirects before reaching `/result/valid`.
 - The interactive redirect lab is available at `/lab`.
 
 ## Configurable redirect endpoint
