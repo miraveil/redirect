@@ -2,6 +2,11 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import {
+  ROOT_REDIRECT_COUNT,
+  VERIFICATION_SCRIPT_HTML,
+  VERIFICATION_SITE_ID,
+} from "../test-config";
 
 type Scenario = {
   id: string;
@@ -128,7 +133,7 @@ function CopyButton({ value }: { value: string }) {
 }
 
 export default function Home() {
-  const [hops, setHops] = useState(3);
+  const [hops, setHops] = useState(ROOT_REDIRECT_COUNT);
   const [status, setStatus] = useState(302);
   const [delay, setDelay] = useState(0);
   const [target, setTarget] = useState("valid");
@@ -167,9 +172,9 @@ export default function Home() {
           <div className="script-block">
             <div>
               <span>Expected script in final page head</span>
-              <code>{`<script async src="https://cdn.coad.be3pi.com/js/cox-site.js" co-pub="PUB02E2503AE" co-st="SIT0C0EB3F27" crossorigin="anonymous">`}</code>
+              <code>{VERIFICATION_SCRIPT_HTML}</code>
             </div>
-            <span className="tag">SITE ID · SIT0C0EB3F27</span>
+            <span className="tag">SITE ID · {VERIFICATION_SITE_ID}</span>
           </div>
         </div>
         <div className="flow-card">

@@ -5,12 +5,15 @@ correctly follows HTTP redirects and inspects the final page `<head>`.
 
 ## Verification identity
 
-- Script path: `https://cdn.coad.be3pi.com/js/cox-site.js`
-- Publisher ID: `co-pub="PUB02E2503AE"`
-- Site ID: `co-st="SIT0C0EB3F27"`
+- The verification script and root redirect count are configured in
+  `app/test-config.json`.
 - The valid script is present only on `/result/valid`.
-- The root URL follows five redirects before reaching `/result/valid`.
+- The root URL follows the configured number of redirects before reaching
+  `/result/valid`.
 - The interactive redirect lab is available at `/lab`.
+
+See [MANUAL-CONFIGURATION.md](MANUAL-CONFIGURATION.md) for the Vietnamese
+self-service guide.
 
 ## Configurable redirect endpoint
 

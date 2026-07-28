@@ -1,5 +1,10 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
+
+const testConfig = JSON.parse(
+  await readFile(new URL("../app/test-config.json", import.meta.url), "utf8"),
+);
 
 async function loadWorker() {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -19,12 +24,12 @@ const context = {
   passThroughOnException() {},
 };
 
-test("root starts a deterministic five-redirect chain", async () => {
+test("root follows the redirect count from test config", async () => {
   const worker = await loadWorker();
   let url = "http://localhost/";
   const statuses = [];
 
-  for (let index = 0; index < 6; index += 1) {
+  for (let index = 0; index <= testConfig.rootRedirectCount; index += 1) {
     const response = await worker.fetch(
       new Request(url, {
         redirect: "manual",
@@ -36,17 +41,18 @@ test("root starts a deterministic five-redirect chain", async () => {
     statuses.push(response.status);
     if (response.status === 200) {
       const html = await response.text();
-      assert.match(
-        html,
-        /<head>[\s\S]*<script async src="https:\/\/cdn\.coad\.be3pi\.com\/js\/cox-site\.js" co-pub="PUB02E2503AE" co-st="SIT0C0EB3F27" crossorigin="anonymous"><\/script>[\s\S]*<\/head>/,
-      );
+      const head = html.match(/<head>([\s\S]*?)<\/head>/i)?.[1] ?? "";
+      assert.ok(head.includes(testConfig.verificationScriptHtml));
       break;
     }
     url = response.headers.get("location");
     assert.ok(url);
   }
 
-  assert.deepEqual(statuses, [302, 302, 302, 302, 302, 200]);
+  assert.deepEqual(statuses, [
+    ...Array(testConfig.rootRedirectCount).fill(302),
+    200,
+  ]);
   assert.equal(url, "http://localhost/result/valid");
 });
 
@@ -68,8 +74,6 @@ test("valid destination returns the COAD script inside head", async () => {
   const html = await response.text();
   const head = html.match(/<head>([\s\S]*?)<\/head>/i)?.[1] ?? "";
   const body = html.match(/<body>([\s\S]*?)<\/body>/i)?.[1] ?? "";
-  assert.match(head, /src="https:\/\/cdn\.coad\.be3pi\.com\/js\/cox-site\.js"/);
-  assert.match(head, /co-pub="PUB02E2503AE"/);
-  assert.match(head, /co-st="SIT0C0EB3F27"/);
-  assert.doesNotMatch(body, /cdn\.coad\.be3pi\.com\/js\/cox-site\.js/);
+  assert.ok(head.includes(testConfig.verificationScriptHtml));
+  assert.ok(!body.includes(testConfig.verificationScriptHtml));
 });

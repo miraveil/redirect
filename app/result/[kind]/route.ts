@@ -1,3 +1,10 @@
+import {
+  VERIFICATION_PUBLISHER_ID,
+  VERIFICATION_SCRIPT_HTML,
+  VERIFICATION_SITE_ID,
+  WRONG_VERIFICATION_SCRIPT_HTML,
+} from "../../test-config";
+
 const style = `
   body{margin:0;background:#f4f7fb;color:#17243a;font-family:Arial,sans-serif;display:grid;min-height:100vh;place-items:center}
   main{width:min(620px,calc(100% - 40px));background:#fff;border:1px solid #dce4ed;border-radius:20px;padding:34px;box-shadow:0 20px 50px rgba(31,55,88,.10)}
@@ -7,16 +14,11 @@ const style = `
 `;
 
 function page(kind: string) {
-  const validScript =
-    '<script async src="https://cdn.coad.be3pi.com/js/cox-site.js" co-pub="PUB02E2503AE" co-st="SIT0C0EB3F27" crossorigin="anonymous"></script>';
-  const wrongScript =
-    '<script async src="https://cdn.coad.be3pi.com/js/cox-site.js" co-pub="PUB02E2503AE" co-st="SIT-WRONG-SITE-ID" crossorigin="anonymous"></script>';
-
   const content: Record<string, { title: string; note: string; head: string; body: string }> = {
     valid: {
       title: "Valid verification destination",
       note: "The expected provider script is present inside this page’s <head>.",
-      head: validScript,
+      head: VERIFICATION_SCRIPT_HTML,
       body: "",
     },
     missing: {
@@ -29,12 +31,12 @@ function page(kind: string) {
       title: "Script is outside <head>",
       note: "The provider script is intentionally placed inside <body>.",
       head: "",
-      body: validScript,
+      body: VERIFICATION_SCRIPT_HTML,
     },
     wrong: {
       title: "Wrong Site ID",
-      note: "The script exists, but its co-st attribute does not match SIT0C0EB3F27.",
-      head: wrongScript,
+      note: `The script exists, but its co-st attribute does not match ${VERIFICATION_SITE_ID}.`,
+      head: WRONG_VERIFICATION_SCRIPT_HTML,
       body: "",
     },
   };
@@ -55,7 +57,7 @@ function page(kind: string) {
     <span class="badge">FINAL RESPONSE · HTTP 200</span>
     <h1>${item.title}</h1>
     <p>${item.note}</p>
-    <code>Expected Site ID: SIT0C0EB3F27</code>
+    <code>Expected Publisher ID: ${VERIFICATION_PUBLISHER_ID}<br>Expected Site ID: ${VERIFICATION_SITE_ID}</code>
     <a href="/lab">← Back to Redirect Verification Lab</a>
   </main>
 </body>

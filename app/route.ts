@@ -1,9 +1,12 @@
+import { ROOT_REDIRECT_COUNT } from "./test-config";
+
 export function GET(request: Request) {
   const url = new URL(request.url);
-  const destination = new URL(
-    "/redirect/4?status=302&delay=0&target=valid",
-    url.origin,
-  );
+  const destinationPath =
+    ROOT_REDIRECT_COUNT === 1
+      ? "/result/valid"
+      : `/redirect/${ROOT_REDIRECT_COUNT - 1}?status=302&delay=0&target=valid`;
+  const destination = new URL(destinationPath, url.origin);
 
   return new Response(null, {
     status: 302,
