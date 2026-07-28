@@ -8,9 +8,9 @@ const style = `
 
 function page(kind: string) {
   const validScript =
-    '<script src="/provider/site-verification.js" data-site-id="qa-redirect-site"></script>';
+    '<script async src="https://cdn.coad.be3pi.com/js/cox-site.js" co-pub="PUB02E2503AE" co-st="SIT0DCBEF6F1" crossorigin="anonymous"></script>';
   const wrongScript =
-    '<script src="/provider/site-verification.js" data-site-id="wrong-site-id"></script>';
+    '<script async src="https://cdn.coad.be3pi.com/js/cox-site.js" co-pub="PUB02E2503AE" co-st="SIT-WRONG-SITE-ID" crossorigin="anonymous"></script>';
 
   const content: Record<string, { title: string; note: string; head: string; body: string }> = {
     valid: {
@@ -33,7 +33,7 @@ function page(kind: string) {
     },
     wrong: {
       title: "Wrong Site ID",
-      note: "The script exists, but its data-site-id does not match qa-redirect-site.",
+      note: "The script exists, but its co-st attribute does not match SIT0DCBEF6F1.",
       head: wrongScript,
       body: "",
     },
@@ -55,8 +55,8 @@ function page(kind: string) {
     <span class="badge">FINAL RESPONSE · HTTP 200</span>
     <h1>${item.title}</h1>
     <p>${item.note}</p>
-    <code>Expected Site ID: qa-redirect-site</code>
-    <a href="/">← Back to Redirect Verification Lab</a>
+    <code>Expected Site ID: SIT0DCBEF6F1</code>
+    <a href="/lab">← Back to Redirect Verification Lab</a>
   </main>
 </body>
 </html>`;

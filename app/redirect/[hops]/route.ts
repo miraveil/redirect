@@ -7,7 +7,7 @@ export async function GET(
 ) {
   const { hops: rawHops } = await context.params;
   const url = new URL(request.url);
-  const hops = Math.max(0, Math.min(50, Number.parseInt(rawHops, 10) || 0));
+  const hops = Math.max(1, Math.min(50, Number.parseInt(rawHops, 10) || 1));
   const requestedStatus = Number.parseInt(url.searchParams.get("status") ?? "302", 10);
   const status = SUPPORTED_STATUSES.has(requestedStatus) ? requestedStatus : 302;
   const delay = Math.max(0, Math.min(5000, Number.parseInt(url.searchParams.get("delay") ?? "0", 10) || 0));
@@ -19,7 +19,7 @@ export async function GET(
   }
 
   const destination =
-    hops > 0
+    hops > 1
       ? new URL(`/redirect/${hops - 1}?status=${status}&delay=${delay}&target=${target}`, url.origin)
       : new URL(`/result/${target}`, url.origin);
 

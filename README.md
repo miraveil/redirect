@@ -5,9 +5,12 @@ correctly follows HTTP redirects and inspects the final page `<head>`.
 
 ## Verification identity
 
-- Script path: `/provider/site-verification.js`
-- Expected attribute: `data-site-id="qa-redirect-site"`
+- Script path: `https://cdn.coad.be3pi.com/js/cox-site.js`
+- Publisher ID: `co-pub="PUB02E2503AE"`
+- Site ID: `co-st="SIT0DCBEF6F1"`
 - The valid script is present only on `/result/valid`.
+- The root URL follows three redirects before reaching `/result/valid`.
+- The interactive redirect lab is available at `/lab`.
 
 ## Configurable redirect endpoint
 
@@ -17,7 +20,7 @@ correctly follows HTTP redirects and inspects the final page `<head>`.
 
 Parameters:
 
-- `hops`: 0–50 redirects.
+- `hops`: 1–50 redirects. Use `/result/{target}` for a no-redirect baseline.
 - `status`: 301, 302, 303, 307, or 308.
 - `delay`: 0–5000 milliseconds per redirect response.
 - `target`: `valid`, `missing`, `body`, `wrong`, or `error`.
